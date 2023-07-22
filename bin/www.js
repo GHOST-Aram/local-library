@@ -1,12 +1,8 @@
-#!/usr/bin/env node
+import { app } from '../app.js';
+import { debug as debuger } from '../zghost/app/init.js';
+import { httphandler as http } from '../zghost/app/init.js';
 
-/**
- * Module dependencies.
- */
-
-const app = require('../app');
-const debug = require('debug')('local-library:server');
-const http = require('http');
+const debug = debuger('local-library:server');
 
 /**
  * Get port from environment and store in Express.
