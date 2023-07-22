@@ -1,5 +1,5 @@
 import createHttpError from 'http-errors';
-import { router as indexRouter } from './catalog/routes/index.js';
+import { router as catalog } from './catalog/urls.js';
 import { app } from './zghost/app/init.js';
 import { config } from './zghost/app/config.js';
 import { catchAndForward404Error, handle404Error } from './zghost/utils/errors.js';
@@ -9,7 +9,10 @@ import { catchAndForward404Error, handle404Error } from './zghost/utils/errors.j
 const createError = createHttpError
 
 config()
-app.use('/', indexRouter);
+app.all('/', (req, res) =>{
+  res.redirect('/catalog')
+})
+app.use('/catalog', catalog);
 
 
 
