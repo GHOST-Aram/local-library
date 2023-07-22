@@ -1,17 +1,22 @@
 import { 
     app, 
-    encordUrl, 
+    urlencoded, 
     json,
     statics, 
-    cookie_parser 
+    cookie_parser,
+    connect 
 } from "../app/init.js";
 
 class Server{
 
-    create404H
+    connectToDB = (URI) =>{
+        connect(URI).then( result =>{
+            console.log('Connected to DB: ')
+        }).catch(error => console.error(error))
+    }
 
-    encodeUrls = (option) =>{
-        encordUrl(option)
+    useUrlEncordedPayloads = (option) =>{
+        app.use(urlencoded(option))
     }
 
     logRequests = (logger) =>{
@@ -30,7 +35,7 @@ class Server{
    }
 
     setViewEngine = (engine) =>{
-            app.set('view engine', engine);
+        app.set('view engine', engine);
     }
 
     useStaticFiles = (dirname) =>{
