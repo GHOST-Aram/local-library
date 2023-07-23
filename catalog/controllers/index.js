@@ -1,4 +1,11 @@
+import { Author } from "../models/author.js";
+
+
 export const index = (req, res) =>{
-    res.render('catalog/index', { title: 'Home' });
+    Author.countDocuments().then(
+        numAuthors => {
+            res.render('catalog/index', { title: 'Home', numAuthors });
+        }
+    )
 }
 
