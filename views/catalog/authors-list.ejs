@@ -1,0 +1,18 @@
+<%-include('../partials/head.ejs') %>
+<body>
+    <%-include('../partials/nav.ejs') %>
+    <main>
+        <h1>Authors in the Library</h1>
+        <ul>
+            <% if(authors.length > 0) { %>
+                <% authors.map(author =>{ %>    
+                    <li><%=author.first_name%> <%=author.last_name%></li>
+                <%})%>
+            <%} else {%>
+                <p>There are no authors to display.</p>
+            <%}%>
+        </ul>
+    </main>
+    <%-include('../partials/footer.ejs') %>
+</body>
+</html>

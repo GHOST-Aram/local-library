@@ -1,49 +1,6 @@
 <%-include('../partials/head.ejs') %>
-<style>
-    body {
-        padding: 50px;
-        margin: auto;
-        font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-        background: rgb(194, 193, 193);
-        color: black;
-      }
-      
-      a {
-        color: #00B7FF;
-      }
-      footer{
-        text-align: center;
-      }
-      ul{
-        list-style: none;
-      }
-      form{
-        width: 50%;
-        margin: auto;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-      }
-      form input{
-        width: 100%;
-        padding-block: .5rem;
-        font-size: 1.5rem;
-        border-radius: .4rem;
-      }
-      form input[type=submit]{
-        background-color: rgb(76, 239, 76);
-        color: white;
-        font-weight: 400;
-        border: solid 2px white;
-      }
-      form input:focus{
-        outline: 2px dotted blue;
-      }
-      
-</style>
 <body>
     <%-include('../partials/nav.ejs') %>
-    
     <main>
         <h1>Create new Author</h1>
         <form action="" method="POST">

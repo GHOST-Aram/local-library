@@ -1,12 +1,4 @@
-import { 
-    asynchHandler, 
-    body, 
-    validationResult 
-} from "../../zghost/app/init.js"
-import { DB_URI } from "../../setting.js"
-import { Database } from "../../zghost/db/database.js"
 import { Author } from "../models/author.js"
-import mongoose from "mongoose"
 
 
 export const author_create_get = (req, res) =>{
@@ -29,4 +21,13 @@ export const author_create_post = (req, res) =>{
         res.redirect('/')
     }).catch(error => console.error(err))
         
+}
+
+export const authors_list = (req, res) =>{
+    Author.find().then(authors =>{
+
+        res.render('catalog/authors-list', 
+            { authors: authors, title: 'Authors List'}
+        )
+    })
 }

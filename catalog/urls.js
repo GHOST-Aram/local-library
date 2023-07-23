@@ -4,6 +4,6 @@ import { router as author } from './routes/author.js'
 
 
 router.get('/', index)
-router.use('/author', author)
+router.use('/authors', author)
 
 export {router}
