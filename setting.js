@@ -6,4 +6,4 @@ const DATABASE_NAME = 'node-tuts'
 export const TEMPLATES_DIR = 'views'
 export const VIEW_ENGINE = 'ejs'
 export const STATIC = 'public'
-export const DB_URI = `mongodb+srv://${USER}:${PASSWORD}@cluster0.dm3wja0.mongodb.net/${DATABASE_NAME}?retryWrites=true&w=majority`
+export const DB_URI = `mongodb://127.0.0.1:27017/local-library`
