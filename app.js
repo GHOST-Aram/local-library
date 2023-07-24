@@ -19,6 +19,7 @@ import {
 	books_create_post, 
 	books_list
 } from './catalog/views/books.js';
+import { bookinstance_create_get } from './catalog/views/book-instance.js';
 
 
 const createError = createHttpError
@@ -40,6 +41,7 @@ mongoose.connect(DB_URI).then(result =>{
 	app.get('/catalog/books/create', books_create_get)
 	app.post('/catalog/books/create', books_create_post)
 	app.get('/catalog/books/list', books_list)
+	app.get('/catalog/bookinstances/create', bookinstance_create_get)
 
 	
 	app.use(function(req, res, next) {
