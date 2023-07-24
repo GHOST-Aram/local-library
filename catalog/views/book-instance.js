@@ -24,3 +24,13 @@ export const bookinstance_create_post = asynchHandler(async(req, res)=>{
     await bookinstance.save()
     res.redirect('/catalog/bookinstances/create')
 })
+
+export const bookinstances_list = asynchHandler(async(req, res) =>{
+    const bookinstances = await BookInstance.find().populate('book').exec()
+    console.log(bookinstances[0])
+    const context = {
+        title: 'Book Instances List',
+        bookinstances
+    }
+    res.render('catalog/bookinstances-list', context)
+})

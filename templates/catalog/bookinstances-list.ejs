@@ -1,0 +1,20 @@
+<%-include('../partials/head.ejs') %>
+<body>
+    <%-include('../partials/nav.ejs') %>
+    <main>
+        <h1>Book Instances in the Library</h1>
+        <ul>
+            <% if(bookinstances.length > 0) { %>    
+                <% bookinstances.map(bookinstance =>{ %>    
+                    <li>
+                        <%=bookinstance.book.title%>, 
+                        <%=bookinstance.status %></li>
+                <%})%>
+            <%} else {%>
+                <p>There are no book instances to display.</p>
+            <%}%>
+        </ul>
+    </main>
+    <%-include('../partials/footer.ejs') %>
+</body>
+</html>
