@@ -35,3 +35,14 @@ export const books_list = asynchHandler(async(req, res) =>{
     
     res.render('catalog/books-list', { title: 'Books List', books})
 })
+
+export const book_details = asynchHandler(async(req, res) =>{
+    const id = req.params.id
+    const book = await Book.findById(id)
+                        .populate('author')
+                        .populate('genre')
+                        .exec()
+    const context = { title: 'Book Details', book}
+    
+    res.render('catalog/book-details.ejs', context )
+})

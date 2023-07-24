@@ -6,7 +6,11 @@
         <ul>
             <% if(books.length > 0) { %>    
                 <% books.map(book =>{ %>    
-                    <li><%=book.title%></li>
+                    <li>
+                        <a href="<%=book.url%>">
+                            <%=book.title%>
+                        </a>
+                    </li>
                 <%})%>
             <%} else {%>
                 <p>There are no books to display.</p>

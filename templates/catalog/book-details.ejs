@@ -1,0 +1,17 @@
+<%-include('../partials/head.ejs') %>
+<body>
+    <%-include('../partials/nav.ejs') %>
+    <main>
+        <h1>Book Details</h1>
+        <ul>
+            <li><strong>Title: </strong><%=book.title%></li>   
+            <li><strong>Author: </strong><%=book.author.name%></li>
+            <li><strong>ISBN: </strong><%=book.isbn%></li>
+            <% if(book.genre){ %>
+            <li><strong>Genre: </strong><%=book.genre.name%></li>  
+            <%}%>
+        </ul>
+    </main>
+    <%-include('../partials/footer.ejs') %>
+</body>
+</html>
