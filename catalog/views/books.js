@@ -29,3 +29,9 @@ export const books_create_post = asynchHandler(async(req, res) =>{
 
     res.redirect('/catalog/books/create')
 })
+
+export const books_list = asynchHandler(async(req, res) =>{
+    const books = await Book.find().exec()
+    
+    res.render('catalog/books-list', { title: 'Books List', books})
+})
