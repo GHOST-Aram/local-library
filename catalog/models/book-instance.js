@@ -1,4 +1,4 @@
-import { ModelSchema } from "../../zghost/db/model";
+import { ModelSchema, Model } from "../../zghost/db/model.js";
 
 const bookinstance = new ModelSchema({
     book: {
