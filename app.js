@@ -18,9 +18,6 @@ import {
 	genre_details
 } from './catalog/views/genre.js';
 import { app } from './zghost/app/init.js';
-import createHttpError from 'http-errors';
-import mongoose from 'mongoose';
-import { DB_URI } from './setting.js';
 import { config } from './zghost/app/config.js';
 import { 
 	book_delete,
@@ -42,64 +39,44 @@ import {
 } from './catalog/views/book-instance.js';
 
 
-const createError = createHttpError
 
 config()
 
-
-mongoose.connect(DB_URI).then(result =>{
-	app.all('/', (req, res) =>{
-		res.redirect('/catalog')
-	})
-	app.get('/catalog/', index)
-
-	app.get('/catalog/genres/create', genre_create_get)
-	app.post('/catalog/genres/create', genre_create_post)
-	app.get('/catalog/genres/list', genre_list)
-	app.get('/catalog/genres/:id', genre_details)
-	app.get('/catalog/genres/:id/update', genre_update_get)
-	app.post('/catalog/genres/:id/update',genre_update_post)
-	app.get('/catalog/genres/:id/delete', genre_delete)
-
-	app.get('/catalog/authors/create', author_create_get)
-	app.post('/catalog/authors/create', author_create_post)
-	app.get('/catalog/authors/list', authors_list)
-	app.get('/catalog/authors/:id', author_details)
-	app.get('/catalog/authors/:id/update', author_update_get)
-	app.post('/catalog/authors/:id/update',author_update_post)
-	app.get('/catalog/authors/:id/delete', author_delete)
-
-	app.get('/catalog/books/create', books_create_get)
-	app.post('/catalog/books/create', books_create_post)
-	app.get('/catalog/books/list', books_list)
-	app.get('/catalog/book/:id', book_details)
-	app.get('/catalog/books/:id/update', book_update_get)
-	app.post('/catalog/books/:id/update', book_update_post)
-	app.get('/catalog/books/:id/delete', book_delete)
-
-	app.get('/catalog/bookinstances/create', bookinstance_create_get)
-	app.post('/catalog/bookinstances/create', bookinstance_create_post)
-	app.get('/catalog/bookinstances/list', bookinstances_list)
-	app.get('/catalog/bookinstances/:id', bookinstance_details)
-	app.get('/catalog/bookinstances/:id/update', bookinstance_update_get)
-	app.post('/catalog/bookinstances/:id/update', bookinstance_update_post)
-	app.get('/catalog/bookinstances/:id/delete', bookinstance_delete)
-
-	
-	// app.use(function(req, res, next) {
-	// 	next(createError(404));
-	// });
-	// app.use(function(err, req, res, next) {
-	//   // set locals, only providing error in development
-	//   res.locals.message = err.message;
-	//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-	
-	//   // render the error page
-	//   res.status(err.status || 500);
-	//   console.error(err)
-	// });
+app.all('/', (req, res) =>{
+	res.redirect('/catalog')
 })
+app.get('/catalog/', index)
 
-// error handler
+app.get('/catalog/genres/create', genre_create_get)
+app.post('/catalog/genres/create', genre_create_post)
+app.get('/catalog/genres/list', genre_list)
+app.get('/catalog/genres/:id', genre_details)
+app.get('/catalog/genres/:id/update', genre_update_get)
+app.post('/catalog/genres/:id/update',genre_update_post)
+app.get('/catalog/genres/:id/delete', genre_delete)
+
+app.get('/catalog/authors/create', author_create_get)
+app.post('/catalog/authors/create', author_create_post)
+app.get('/catalog/authors/list', authors_list)
+app.get('/catalog/authors/:id', author_details)
+app.get('/catalog/authors/:id/update', author_update_get)
+app.post('/catalog/authors/:id/update',author_update_post)
+app.get('/catalog/authors/:id/delete', author_delete)
+
+app.get('/catalog/books/create', books_create_get)
+app.post('/catalog/books/create', books_create_post)
+app.get('/catalog/books/list', books_list)
+app.get('/catalog/book/:id', book_details)
+app.get('/catalog/books/:id/update', book_update_get)
+app.post('/catalog/books/:id/update', book_update_post)
+app.get('/catalog/books/:id/delete', book_delete)
+
+app.get('/catalog/bookinstances/create', bookinstance_create_get)
+app.post('/catalog/bookinstances/create', bookinstance_create_post)
+app.get('/catalog/bookinstances/list', bookinstances_list)
+app.get('/catalog/bookinstances/:id', bookinstance_details)
+app.get('/catalog/bookinstances/:id/update', bookinstance_update_get)
+app.post('/catalog/bookinstances/:id/update', bookinstance_update_post)
+app.get('/catalog/bookinstances/:id/delete', bookinstance_delete)
 
 export {app};

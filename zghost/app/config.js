@@ -14,4 +14,7 @@ export const config = () =>{
     server.setTemplatesDir(TEMPLATES_DIR)
     server.setViewEngine(VIEW_ENGINE)
     server.useStaticFiles(STATIC)
+    server.useCompressor()
+    server.useHelmet()
+    server.useRateLimiter()
 }

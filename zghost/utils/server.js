@@ -4,7 +4,10 @@ import {
     json,
     statics, 
     cookie_parser,
-    connect 
+    connect, 
+    rateLimiter,
+    compressor,
+    helmetSecurity
 } from "../app/init.js";
 
 class Server{
@@ -37,10 +40,20 @@ class Server{
     setViewEngine = (engine) =>{
         app.set('view engine', engine);
     }
-
+    useCompressor = () =>{
+        app.use(compressor)
+    }
+    useHelmet = () =>{
+        app.use(helmetSecurity)
+    }
     useStaticFiles = (dirname) =>{
         app.use(statics(dirname));
     }
+
+    useRateLimiter = () =>{
+        app.use(rateLimiter)
+    }
+
 
 }
 
