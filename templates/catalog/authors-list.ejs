@@ -6,7 +6,7 @@
         <ul>
             <% if(authors.length > 0) { %>
                 <% authors.map(author =>{ %>    
-                    <li><%=author.first_name%> <%=author.last_name%></li>
+                    <li><%=author.name%></li>
                 <%})%>
             <%} else {%>
                 <p>There are no authors to display.</p>

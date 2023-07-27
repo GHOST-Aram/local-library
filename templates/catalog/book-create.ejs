@@ -1,0 +1,67 @@
+<%-include('../partials/head.ejs') %>
+<body>
+    <%-include('../partials/nav.ejs') %>
+    <main>
+        <form action="" method="POST">
+            <h1>Create new Book</h1>
+            <div>
+                <label for="title">
+                    Title
+                    <input type="text" name = 'title' required 
+                        maxlength="100" minlength="3" id="title"
+                    >
+                </label>
+            </div>
+            <div>
+                <label for="author">
+                    Author
+                    <% if(authors.length > 0) {%>
+                        <select name="author" id="author">
+                            <%authors.map(author =>{ %>
+                                <option 
+                                    value=<%=author.id%>> <%=author.name%>
+                                </option>
+                           <% } ) %>
+                        </select>
+                    <%} else {%>
+                        <p>No authors List to select from.</p>
+                    <%}%>
+                </label>
+            </div>
+            <div>
+                <label for="isbn">
+                    ISBN
+                    <input 
+                        type="text" 
+                        name="isbn" 
+                        id="isbn" 
+                        required
+                        maxlength="13"
+                        minlength="13"
+                    >
+                </label>
+            </div>
+            <div>
+                <label for="genre">
+                    Genre
+                    <% if(genres.length > 0) {%>
+                        <select name="genre" id="genre">
+                            <%genres.map(genre =>{ %>
+                                <option 
+                                    value=<%=genre.id%>> <%=genre.name%>
+                                </option>
+                           <% } ) %>
+                        </select>
+                    <%} else {%>
+                        <p>No Genres List to select from.</p>
+                    <%}%>
+                </label>
+            </div>
+            <div>
+                <input type="submit" value="Create Book">
+            </div>
+        </form>
+    
+    </main>
+    <%-include('../partials/footer.ejs') %>
+</body>
