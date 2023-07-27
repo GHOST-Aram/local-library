@@ -10,6 +10,13 @@
             <% if(book.genre){ %>
             <li><strong>Genre: </strong><%=book.genre.name%></li>  
             <%}%>
+            <a href="/catalog/books/<%=book._id%>/update">
+                <button
+                    style="background-color: green; color: white;"
+                >
+                    Edit
+                </button>
+            </a> 
         </ul>
     </main>
     <%-include('../partials/footer.ejs') %>

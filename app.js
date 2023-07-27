@@ -21,6 +21,7 @@ import { DB_URI } from './setting.js';
 import { config } from './zghost/app/config.js';
 import { 
 	book_details,
+	book_update_get,
 	books_create_get, 
 	books_create_post, 
 	books_list
@@ -58,6 +59,7 @@ mongoose.connect(DB_URI).then(result =>{
 	app.post('/catalog/books/create', books_create_post)
 	app.get('/catalog/books/list', books_list)
 	app.get('/catalog/book/:id', book_details)
+	app.get('/catalog/books/:id/update', book_update_get)
 	app.get('/catalog/bookinstances/create', bookinstance_create_get)
 	app.post('/catalog/bookinstances/create', bookinstance_create_post)
 	app.get('/catalog/bookinstances/list', bookinstances_list)
