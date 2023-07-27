@@ -16,5 +16,9 @@ export const genre_create_post = (req, res) =>{
     })    
 }
 
+export const genre_list = asynchHandler(async(req, res) =>{
+    const genres = await Genre.find().exec()
 
+    res.render('catalog/genre-list', { title: 'Genre List', genres})
+})
 

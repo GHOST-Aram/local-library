@@ -1,23 +1,19 @@
-import { index } from './catalog/controllers/index.js'
+import { index } from './catalog/views/index.js'
 import { 
 	author_create_get, 
 	author_create_post, 
 	authors_list 
-} from './catalog/controllers/author.js'
+} from './catalog/views/author.js'
 import { 
 	genre_create_post,
 	genre_create_get 
-} from './catalog/controllers/genre.js';
-import { cookie_parser } from './zghost/app/init.js';
-import { urlencoded } from './zghost/app/init.js';
-import { json } from './zghost/app/init.js';
-import { statics } from './zghost/app/init.js';
+} from './catalog/views/genre.js';
 import { app } from './zghost/app/init.js';
-import { logger } from './zghost/app/init.js';
 import createHttpError from 'http-errors';
 import mongoose from 'mongoose';
 import { DB_URI } from './setting.js';
 import { config } from './zghost/app/config.js';
+import { genre_list } from './catalog/views/genre.js';
 
 const createError = createHttpError
 
@@ -28,10 +24,10 @@ mongoose.connect(DB_URI).then(result =>{
 	app.all('/', (req, res) =>{
 		res.redirect('/catalog')
 	})
-	// app.use('/catalog', catalog);
 	app.get('/catalog/', index)
 	app.get('/catalog/genres/create', genre_create_get)
 	app.post('/catalog/genres/create', genre_create_post)
+	app.get('/catalog/genres/list', genre_list)
 	app.get('/catalog/authors/create', author_create_get)
 	app.post('/catalog/authors/create', author_create_post)
 	app.get('/catalog/authors/list', authors_list)
