@@ -1,0 +1,20 @@
+<%-include('../partials/head.ejs') %>
+<body>
+    <%-include('../partials/nav.ejs') %>
+    <main>
+        <h1>Author Details</h1>
+        <ul>
+            <li><strong>First Name: </strong><%=author.first_name%></li>   
+            <li><strong>Family Name: </strong><%=author.last_name%></li>
+            <li><strong>Date of Birth </strong><%=author.date_of_birth%></li>
+            <% if(author.date_of_death){ %>
+            <li>
+                <strong>Date of death: </strong>
+                <%=author.date_of_death%>
+            </li>  
+            <%}%>
+        </ul>
+    </main>
+    <%-include('../partials/footer.ejs') %>
+</body>
+</html>

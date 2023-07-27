@@ -1,3 +1,4 @@
+import { asynchHandler } from "../../zghost/app/init.js"
 import { Author } from "../models/author.js"
 
 
@@ -32,3 +33,12 @@ export const authors_list = (req, res) =>{
         )
     })
 }
+
+export const author_details = asynchHandler(async(req, res) =>{
+    const author = await Author.findById(req.params.id).exec()
+    const context = {
+        title: 'Author Details',
+        author
+    }
+    res.render('catalog/author-details', context)
+})

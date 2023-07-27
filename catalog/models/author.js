@@ -26,4 +26,8 @@ authorSchema.virtual('name').get(function(){
     return `${this.first_name} ${this.last_name}`
 })
 
+authorSchema.virtual('url').get(function(){
+    return `/catalog/authors/${this._id}`
+})
+
 export const Author = new Model('Author', authorSchema)
