@@ -1,0 +1,17 @@
+<%-include('../partials/head.ejs') %>
+<body>
+    <%-include('../partials/nav.ejs') %>
+    <main>
+        <h1>Book Instance Details</h1>
+        <ul>
+            <li><strong>Title: </strong><%=bookinstance.book.title%></li>   
+            <li><strong>Imprint: </strong><%=bookinstance.imprint%></li>
+            <li><strong>Status: </strong><%=bookinstance.status%></li>
+            <% if(bookinstance.due_back){ %>
+            <li><strong>Genre: </strong><%=bookinstance.due_back%></li>  
+            <%}%>
+        </ul>
+    </main>
+    <%-include('../partials/footer.ejs') %>
+</body>
+</html>

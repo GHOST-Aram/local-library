@@ -35,3 +35,15 @@ export const bookinstances_list = asynchHandler(async(req, res) =>{
     }
     res.render('catalog/bookinstances-list', context)
 })
+
+export const bookinstance_details = asynchHandler(async(req, res)=>{
+    const bookinstance = await BookInstance.findById(req.params.id)
+                                .populate('book')
+                                .exec()
+    const context = {
+        title: 'Book Instance Details',
+        bookinstance
+    }
+
+    res.render('catalog/bookinstance-details', context)
+})

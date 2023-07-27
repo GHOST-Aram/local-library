@@ -7,8 +7,16 @@
             <% if(bookinstances.length > 0) { %>    
                 <% bookinstances.map(bookinstance =>{ %>    
                     <li>
-                        <%=bookinstance.book.title%>, 
-                        <%=bookinstance.status %></li>
+                        <strong>Title: </strong>
+                        <a href="<%=bookinstance.url%>">
+                            <%=bookinstance.book.title%>
+                        </a>
+                    </li>
+                    <li>
+                        <strong>Status: </strong>
+                        <%=bookinstance.status %>
+                    </li>
+                    <br>
                 <%})%>
             <%} else {%>
                 <p>There are no book instances to display.</p>
