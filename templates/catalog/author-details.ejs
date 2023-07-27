@@ -11,8 +11,15 @@
             <li>
                 <strong>Date of death: </strong>
                 <%=author.date_of_death%>
-            </li>  
+            </li> 
             <%}%>
+            <a href="/catalog/authors/<%=author._id%>/update">
+                <button
+                    style="background-color: green; color: white;"
+                >
+                    Edit
+                </button>
+            </a> 
         </ul>
     </main>
     <%-include('../partials/footer.ejs') %>

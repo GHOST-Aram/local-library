@@ -42,3 +42,12 @@ export const author_details = asynchHandler(async(req, res) =>{
     }
     res.render('catalog/author-details', context)
 })
+
+export const author_update_get = asynchHandler(async(req, res) =>{
+    const author = await Author.findById(req.params.id).exec()
+    const context = {
+        title: 'Edit Author',
+        author
+    }
+    res.render('catalog/author-create', context)
+})

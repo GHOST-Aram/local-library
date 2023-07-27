@@ -3,6 +3,7 @@ import {
 	author_create_get, 
 	author_create_post, 
 	author_details, 
+	author_update_get, 
 	authors_list 
 } from './catalog/views/author.js'
 import { 
@@ -50,6 +51,7 @@ mongoose.connect(DB_URI).then(result =>{
 	app.post('/catalog/authors/create', author_create_post)
 	app.get('/catalog/authors/list', authors_list)
 	app.get('/catalog/authors/:id', author_details)
+	app.get('/catalog/authors/:id/update', author_update_get)
 	app.get('/catalog/books/create', books_create_get)
 	app.post('/catalog/books/create', books_create_post)
 	app.get('/catalog/books/list', books_list)
