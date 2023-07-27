@@ -1,3 +1,4 @@
+import { asynchHandler } from "../../zghost/app/init.js";
 import { Genre } from "../models/genre.js";
 
 
@@ -14,4 +15,6 @@ export const genre_create_post = (req, res) =>{
         res.redirect('/')
     })    
 }
+
+
 

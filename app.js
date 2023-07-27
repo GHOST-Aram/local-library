@@ -17,17 +17,11 @@ import { logger } from './zghost/app/init.js';
 import createHttpError from 'http-errors';
 import mongoose from 'mongoose';
 import { DB_URI } from './setting.js';
+import { config } from './zghost/app/config.js';
 
 const createError = createHttpError
 
-app.set('views', 'views');
-app.set('view engine', 'ejs');
-
-app.use(logger('dev'));
-app.use(json());
-app.use(urlencoded({ extended: false }));
-app.use(cookie_parser());
-app.use(statics('public'));
+config()
 
 
 mongoose.connect(DB_URI).then(result =>{
