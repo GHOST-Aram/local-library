@@ -32,3 +32,11 @@ export const genre_update_get = asynchHandler(async(req, res) =>{
     res.render('catalog/genre-create', context)
 })
 
+export const genre_update_post = asynchHandler(async(req, res) =>{
+    const result = await Genre.findByIdAndUpdate(
+        req.params.id, { name: req.body.name }
+    )
+
+    res.redirect('/catalog/genres/list')
+})
+
