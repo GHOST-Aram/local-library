@@ -51,3 +51,15 @@ export const author_update_get = asynchHandler(async(req, res) =>{
     }
     res.render('catalog/author-create', context)
 })
+
+export const author_update_post = asynchHandler(async(req, res) =>{
+    const incoming = req.body
+    await Author.findByIdAndUpdate(req.params.id,{
+        first_name: incoming.first_name,
+        last_name: incoming.last_name,
+        date_of_birth: incoming.date_of_birth,
+        date_of_death: incoming.date_of_death
+    })
+
+    res.redirect(`/catalog/authors/${req.params.id}`)
+})
