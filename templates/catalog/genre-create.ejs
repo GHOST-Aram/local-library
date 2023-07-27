@@ -7,7 +7,23 @@
             <div>
                 <label for="name">
                     Genre Name:
-                    <input type="text" name="name" id="name" required>
+                    
+                    <% if (genre){%>
+                        <input 
+                            type="text" 
+                            name="name" 
+                            id="name" 
+                            value="<%=genre.name%>"
+                            required
+                        >
+                    <%}else{%>
+                        <input 
+                            type="text" 
+                            name="name" 
+                            id="name" 
+                            required
+                        >
+                    <%} %>
                 </label>
             </div>
             <div>

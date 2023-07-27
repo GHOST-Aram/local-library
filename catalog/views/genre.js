@@ -22,3 +22,13 @@ export const genre_list = asynchHandler(async(req, res) =>{
     res.render('catalog/genre-list', { title: 'Genre List', genres})
 })
 
+export const genre_update_get = asynchHandler(async(req, res) =>{
+    const genre = await Genre.findById(req.params.id).exec()
+    const context = {
+        title: 'Edit Genre',
+        genre
+    }
+
+    res.render('catalog/genre-create', context)
+})
+

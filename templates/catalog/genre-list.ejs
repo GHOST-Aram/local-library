@@ -5,8 +5,14 @@
         <h1>Genres in the Library</h1>
         <ul>
             <% if(genres.length > 0) { %>
-                <% genres.map(genre =>{ %>    
-                    <li><%=genre.name%></li>
+                <% genres.map(genre =>{ %> 
+                    <div style="display: flex; gap: 1rem;">
+                        <li><%=genre.name%></li>
+                        <a href="/catalog/genres/<%=genre._id%>/update">
+                            Edit
+                        </a>
+                    </div>   
+                    <hr>
                 <%})%>
             <%} else {%>
                 <p>There are no genres to display.</p>
