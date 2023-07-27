@@ -14,7 +14,10 @@ import createHttpError from 'http-errors';
 import mongoose from 'mongoose';
 import { DB_URI } from './setting.js';
 import { config } from './zghost/app/config.js';
-import { books_create } from './catalog/views/books.js';
+import { 
+	books_create_get, 
+	books_create_post 
+} from './catalog/views/books.js';
 
 
 const createError = createHttpError
@@ -33,7 +36,9 @@ mongoose.connect(DB_URI).then(result =>{
 	app.get('/catalog/authors/create', author_create_get)
 	app.post('/catalog/authors/create', author_create_post)
 	app.get('/catalog/authors/list', authors_list)
-	app.get('/catalog/books/create', books_create)
+	app.get('/catalog/books/create', books_create_get)
+	app.post('/catalog/books/create', books_create_post)
+
 	
 	app.use(function(req, res, next) {
 		next(createError(404));
