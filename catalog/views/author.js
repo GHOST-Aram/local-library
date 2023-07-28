@@ -32,11 +32,11 @@ export const author_create_post = [
             date_of_birth: req.body.date_of_birth,
             date_of_death: req.body.date_of_death
         })
-        
+
         if(!errors.isEmpty()){
             render(res, 'catalog/author-create', { 
                 title: 'Create Author', 
-                heading: 'Try again Create Author',
+                heading: 'Failed retry Create Author',
                 errors: errors.array()
             })
         } else {

@@ -3,25 +3,49 @@ import { Book } from "../models/book.js";
 import { BookInstance } from "../models/book-instance.js";
 import { db } from "../../zghost/db/database.js";
 import { render, redirect } from "../../zghost/utils/http-response.js";
+import { validator } from "../../zghost/utils/validation.js";
+import { validationResult } from "../../zghost/app/init.js";
 
 export const bookinstance_create_get = asynchHandler(async(req, res) =>{
     const books = await db.findAll(Book)
 
     render(res, 'catalog/book-instance-create', {
-        title: 'Create Book Instance', books
+        title: 'Create Book Instance', 
+        books,
+        errors:null
     })
 })
 
-export const bookinstance_create_post = asynchHandler(async(req, res)=>{
-    await db.create(BookInstance, {
-        book: req.body.book,
-        imprint: req.body.imprint,
-        status: req.body.status,
-        due_back: req.body.due_back
-    })
+export const bookinstance_create_post = [
+    validator.validatePlainText('book'),
+    validator.validatePlainText('imprint'),
+    validator.validatePlainText('status'),
+    validator.validateDate('due_back'),
 
-    redirect(res, '/catalog/bookinstances/list')
-})
+    asynchHandler(async(req, res)=>{
+        const errors = validationResult(req)
+
+        const bookinstance = new BookInstance({
+            book: req.body.book,
+            imprint: req.body.imprint,
+            status: req.body.status,
+            due_back: req.body.due_back
+        })
+        
+        if(!errors.isEmpty()){//re-render creation form with errors
+            const books = await db.findAll(Book)
+
+            render(res, 'catalog/book-instance-create', {
+                title: 'Create Book Instance', 
+                books,
+                errors
+            })
+        } else{
+            await db.save(bookinstance)
+            redirect(res, '/catalog/bookinstances/list')
+        }
+    })
+]
 
 export const bookinstances_list = asynchHandler(async(req, res) =>{
     const bookinstances = await db.findAllAndPopulate(
