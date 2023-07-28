@@ -48,6 +48,11 @@
             <div>
                 <input type="submit" value="Create Book Instance">
             </div>
+            <% if (errors) {%>
+                <% errors.map(error =>{ %>
+                    <p><%=error%></p>
+                <%})%>
+            <%}%>
         </form>
     
     </main>

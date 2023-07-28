@@ -38,7 +38,7 @@ export const bookinstance_create_post = [
             render(res, 'catalog/book-instance-create', {
                 title: 'Create Book Instance', 
                 books,
-                errors
+                errors: errors.array()
             })
         } else{
             await db.save(bookinstance)

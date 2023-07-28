@@ -1,10 +1,11 @@
-import { asynchHandler } from "../../zghost/app/init.js";
+import { asynchHandler, validationResult } from "../../zghost/app/init.js";
 import { Author } from "../models/author.js";
 import { Book } from "../models/book.js";
 import { db } from "../../zghost/db/database.js";
 import { Genre } from "../models/genre.js";
 import { redirect, render } from "../../zghost/utils/http-response.js";
 import { BookInstance } from "../models/book-instance.js";
+import { validator } from "../../zghost/utils/validation.js";
 
 export const books_create_get = asynchHandler(async( req, res) => {
     const [authors, genres] = await db.executeBatchQuery([
@@ -18,16 +19,39 @@ export const books_create_get = asynchHandler(async( req, res) => {
     })
 })
 
-export const books_create_post = asynchHandler(async(req, res) =>{
-    await db.create(Book, {
-        title: req.body.title,
-        author: req.body.author,
-        isbn: req.body.isbn,
-        genre: req.body.genre
-    })
+export const books_create_post = [
+    validator.validatePlainText('title'),
+    validator.validatePlainText('author'),
+    validator.validateISBN('isbn'),
+    validator.validatePlainText('genre'),
 
-    redirect(res, '/catalog/books/list')
-})
+    asynchHandler(async(req, res) =>{
+        const validationErrors = validationResult(req)
+
+        const book = new Book({
+            title: req.body.title,
+            author: req.body.author,
+            isbn: req.body.isbn,
+            genre: req.body.genre
+        })
+        
+        if(!validationErrors.isEmpty()){
+            const [authors, genres] = await db.executeBatchQuery([
+                db.findAll(Author), db.findAll(Genre)
+            ])
+            
+            render(res, 'catalog/book-create',  { 
+                title: 'Create New Book',
+                authors,
+                genres, 
+                book
+            })
+        } else{
+            db.save(book)
+            redirect(res, '/catalog/books/list')
+        }
+    })
+]
 
 export const books_list = asynchHandler(async(req, res) =>{
     const books = await db.findAll(Book)
