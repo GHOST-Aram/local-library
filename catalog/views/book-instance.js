@@ -47,3 +47,19 @@ export const bookinstance_details = asynchHandler(async(req, res)=>{
 
     res.render('catalog/bookinstance-details', context)
 })
+
+export const bookinstance_update_get = asynchHandler(async(req, res)=>{
+    const bookinstance = await BookInstance.findById(req.params.id)
+                                .populate('book')
+                                .exec()
+    const books = await Book.find().exec()
+    
+
+    const context = {
+        title: 'Edit Book Instance Details',
+        bookinstance,
+        books
+    }
+
+    res.render('catalog/bookinstance-update', context)
+})

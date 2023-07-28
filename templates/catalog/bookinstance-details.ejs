@@ -10,6 +10,13 @@
             <% if(bookinstance.due_back){ %>
             <li><strong>Genre: </strong><%=bookinstance.due_back%></li>  
             <%}%>
+            <a href="/catalog/bookinstances/<%=bookinstance._id%>/update">
+                <button
+                    style="background-color: green; color: white;"
+                >
+                    Edit
+                </button>
+            </a> 
         </ul>
     </main>
     <%-include('../partials/footer.ejs') %>

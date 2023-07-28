@@ -9,9 +9,12 @@
                     Book
                     <% if(books.length > 0) {%>
                         <select name="book" id="book">
+                            <option value="<%=bookinstance.book._id%>" selected>
+                                <%=bookinstance.book.title%>
+                            </option>
                             <%books.map(book =>{ %>
-                                <option 
-                                    value=<%=book._id%>> <%=book.title%>
+                                <option value=<%=book._id%>> 
+                                    <%=book.title%>
                                 </option>
                            <% } ) %>
                         </select>
@@ -24,8 +27,14 @@
                 <div>
                 <label for="imprint">
                     Imprint
-                    <input type="text" name = 'imprint' required 
-                        maxlength="100" minlength="3" id="imprint"
+                    <input 
+                        type="text" 
+                        name = 'imprint' 
+                        required 
+                        maxlength="100" 
+                        minlength="3" 
+                        id="imprint"
+                        value="<%=bookinstance.imprint%>"
                     >
                 </label>
             </div>
@@ -36,13 +45,21 @@
                         <option value="Maintenance">Maintenance</option>
                         <option value="Loaned">Loaned</option>
                         <option value="Reserved">Reserved</option>
+                        <option value="<%=bookinstance.status%>" selected>
+                            <%=bookinstance.status%>
+                        </option>
                     </select>
                 </label>
             </div>
             <div>
                 <label for="due-back">
                     Due Back
-                    <input type="date" name="due_back" id="due-back">
+                    <input 
+                        type="date" 
+                        name="due_back" 
+                        id="due-back"
+                        value="<%=bookinstance.due_back%>"
+                    >
                 </label>
             </div>
             <div>
