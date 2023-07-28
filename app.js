@@ -31,6 +31,7 @@ import {
 	bookinstance_create_post, 
 	bookinstance_details, 
 	bookinstance_update_get, 
+	bookinstance_update_post, 
 	bookinstances_list
 } from './catalog/views/book-instance.js';
 
@@ -66,6 +67,7 @@ mongoose.connect(DB_URI).then(result =>{
 	app.get('/catalog/bookinstances/list', bookinstances_list)
 	app.get('/catalog/bookinstances/:id', bookinstance_details)
 	app.get('/catalog/bookinstances/:id/update', bookinstance_update_get)
+	app.post('/catalog/bookinstances/:id/update', bookinstance_update_post)
 
 
 
