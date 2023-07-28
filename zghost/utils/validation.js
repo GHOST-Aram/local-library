@@ -1,18 +1,19 @@
 import { body } from '../app/init.js'
 
 class Validator{
+    validateDate = (strName) => {
+        return body(strName)
+            .optional({ values: 'falsy' })
+            .isISO8601()
+            .withMessage('Invalid date')
+    }
+
     validatePlainText = (strName) => {
         return body(strName)
             .trim()
             .notEmpty()
             .withMessage(`${strName} Cannot be empty`)
             .escape()
-    }
-    validateDate = (strName) => {
-        return body(strName)
-            .notEmpty()
-            .isISO8601()
-            .withMessage('Invalid date')
     }
     
     validateISBN = (strName) =>{

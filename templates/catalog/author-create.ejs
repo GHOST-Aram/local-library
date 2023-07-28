@@ -35,6 +35,11 @@
                 <div>
                     <input type="submit" value="Create">
                 </div>
+                <% if (errors) {%>
+                    <% errors.map(error =>{ %>
+                        <p><%=error%></p>
+                    <%})%>
+                <%}%>
         </form>
     
     </main>
