@@ -1,27 +1,48 @@
-import { asynchHandler } from "../../zghost/app/init.js";
+import { asynchHandler, validationResult } from "../../zghost/app/init.js";
 import { Book } from "../models/book.js";
 import { db } from "../../zghost/db/database.js";
 import { Genre } from "../models/genre.js";
 import { redirect, render } from "../../zghost/utils/http-response.js";
 import { compareObjectIds } from "../../zghost/utils/objects.js";
+import { validator } from "../../zghost/utils/validation.js";
 
 
 export const genre_create_get = (req, res) =>{
     render(res, 'catalog/genre-create',{ 
-        title: 'Create Genre', heading: 'Create New Genre'
+        title: 'Create Genre', 
+        heading: 'Create New Genre',
+        errors: null
     })
 }
 
-export const genre_create_post = asynchHandler(async(req, res) =>{
-    await db.create(Genre, {
-        name: req.body.name,
-        description: req.body.description,
-        origin: req.body.origin
-       })
+export const genre_create_post = [
+    validator.validatePlainText('name'),
+    validator.validatePlainText('description'),
+    validator.validatePlainText('origin'),
 
-    redirect(res, '/catalog/genres/list')
-       
-})
+    asynchHandler(async(req, res) =>{
+        const validationErrors = validationResult(req)
+
+        const genre = new Genre({
+            name: req.body.name,
+            description: req.body.description,
+            origin: req.body.origin
+        })
+
+        if(!validationErrors.isEmpty()){
+            render(res, 'catalog/genre-create',{ 
+                title: 'Create Genre', 
+                heading: 'Create New Genre',
+                errors: validationErrors.array()
+            })
+        } else{
+            await db.save(genre)
+            redirect(res, '/catalog/genres/list')
+        }
+    
+           
+    })
+]
 
 export const genre_delete = asynchHandler(async(req, res) =>{
     const linkedGenres = await db.findWithPopulateAndFilter(

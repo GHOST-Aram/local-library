@@ -15,7 +15,8 @@ export const books_create_get = asynchHandler(async( req, res) => {
     render(res, 'catalog/book-create',  { 
         title: 'Create New Book',
         authors,
-        genres
+        genres,
+        errors: null
     })
 })
 
@@ -44,7 +45,7 @@ export const books_create_post = [
                 title: 'Create New Book',
                 authors,
                 genres, 
-                book
+                errors: validationErrors.array()
             })
         } else{
             db.save(book)
