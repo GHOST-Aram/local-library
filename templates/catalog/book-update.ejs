@@ -3,7 +3,7 @@
     <%-include('../partials/nav.ejs') %>
     <main>
         <form action="" method="POST">
-            <h1>Create new Book</h1>
+            <h1>Edit Book Details</h1>
             <div>
                 <label for="title">
                     Title
@@ -14,6 +14,7 @@
                         maxlength="100" 
                         minlength="3" 
                         id="title"
+                        value="<%=book.title %>"
                     >
                 </label>
             </div>
@@ -21,10 +22,10 @@
                 <label for="author">
                     Author
                     <% if(authors.length > 0) {%>
-                        <select 
-                            name="author" 
-                            id="author"
-                        >
+                        <select name="author" id="author">
+                            <option value="<%=book.author._id%>" selected>
+                                <%=book.author.name%>
+                            </option>
                             <%authors.map(author =>{ %>
                                 <option 
                                     value=<%=author._id%>> <%=author.name%>
@@ -46,6 +47,7 @@
                         required
                         maxlength="13"
                         minlength="13"
+                        value="<%=book.isbn%>"
                     >
                 </label>
             </div>
@@ -57,6 +59,9 @@
                             name="genre" 
                             id="genre"
                         >
+                        <option value="<%=book.genre._id%>" selected>
+                            <%=book.genre.name%>
+                        </option>
                             <%genres.map(genre =>{ %>
                                 <option 
                                     value=<%=genre._id%>> <%=genre.name%>

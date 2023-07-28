@@ -4,7 +4,11 @@ import { Author } from "../models/author.js"
 
 
 export const author_create_get = (req, res) =>{
-    res.render('catalog/author-create', { title: 'Create Author'})
+    res.render('catalog/author-create', 
+    { 
+        title: 'Create Author',
+        heading: 'Create new Author'
+    })
 }
 
 export const author_create_post = (req, res) =>{
@@ -47,9 +51,10 @@ export const author_update_get = asynchHandler(async(req, res) =>{
     const author = await Author.findById(req.params.id).exec()
     const context = {
         title: 'Edit Author',
-        author
+        author,
+        heading: 'Edit Author Details'
     }
-    res.render('catalog/author-create', context)
+    res.render('catalog/author-update', context)
 })
 
 export const author_update_post = asynchHandler(async(req, res) =>{

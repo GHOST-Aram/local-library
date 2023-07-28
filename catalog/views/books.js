@@ -48,12 +48,16 @@ export const book_details = asynchHandler(async(req, res) =>{
 
 export const book_update_get = asynchHandler(async(req, res) =>{
     const [authors, genres, book] = await Promise.all([
-        Author.find().exec(), Genre.find().exec(),
-        Book.findById(req.params.id).exec()
+        Author.find().exec(), 
+        Genre.find().exec(),
+        Book.findById(req.params.id)
+            .populate('author')
+            .populate('genre')
+            .exec()
     ])
   
 
-    res.render('catalog/book-create', { 
+    res.render('catalog/book-update', { 
         title: 'Edit Book', 
         book,
         authors,

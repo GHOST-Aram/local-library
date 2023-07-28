@@ -1,0 +1,67 @@
+<%-include('../partials/head.ejs') %>
+<body>
+    <%-include('../partials/nav.ejs') %>
+    <main>
+        <form action="" method="POST">
+            <h1>Update Author Details</h1>
+            <div>
+                <label for="first-name">
+                    First Name
+                    <input 
+                        type="text" 
+                        name = 'first_name' 
+                        required 
+                        maxlength="100" 
+                        minlength="2"
+                        value="<%=author.first_name%>"
+                    >
+                </label>
+            </div>
+            <div>
+                <label for="last-name">
+                    Last Name
+                    <input 
+                        type="text" 
+                        name="last_name" 
+                        required 
+                        maxlength="100" 
+                        minlength="2"
+                        value="<%=author.last_name%>"
+                    >
+                </label>
+            </div>
+            <div>
+                <label for="date-birth">
+                    Date of Birth
+                    <input 
+                        type="date" 
+                        name="date_of_birth" 
+                        required
+                        value="<%=author.date_of_birth%>"
+                    >
+                </label>
+            </div>
+            <div>
+                <label for="date-death">
+                    Date of Death
+                    <% if(author.date_of_death){%>
+                        <input 
+                            type="date" 
+                            name="date_of_death"
+                            value="<%=author.date_of_death%>"
+                        >
+                    <%}else{%>
+                        <input 
+                            type="date" 
+                            name="date_of_death"
+                        >
+                    <%} %>
+                </label>
+            </div>
+            <div>
+                <input type="submit" value="Create">
+            </div>
+    </form>
+</main>
+<%-include('../partials/footer.ejs') %>
+</body>

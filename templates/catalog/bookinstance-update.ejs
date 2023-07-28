@@ -1,0 +1,55 @@
+<%-include('../partials/head.ejs') %>
+<body>
+    <%-include('../partials/nav.ejs') %>
+    <main>
+        <form action="" method="POST">
+            <h1>Create new Book Instance</h1>
+            <div>
+                <label for="book">
+                    Book
+                    <% if(books.length > 0) {%>
+                        <select name="book" id="book">
+                            <%books.map(book =>{ %>
+                                <option 
+                                    value=<%=book._id%>> <%=book.title%>
+                                </option>
+                           <% } ) %>
+                        </select>
+                    <%} else {%>
+                        <p>No books List to select from.</p>
+                    <%}%>
+                </label>
+            </div>
+            <div>
+                <div>
+                <label for="imprint">
+                    Imprint
+                    <input type="text" name = 'imprint' required 
+                        maxlength="100" minlength="3" id="imprint"
+                    >
+                </label>
+            </div>
+                <label for="status">
+                    Status
+                    <select name="status" id="status">
+                        <option value="Available">Available</option>
+                        <option value="Maintenance">Maintenance</option>
+                        <option value="Loaned">Loaned</option>
+                        <option value="Reserved">Reserved</option>
+                    </select>
+                </label>
+            </div>
+            <div>
+                <label for="due-back">
+                    Due Back
+                    <input type="date" name="due_back" id="due-back">
+                </label>
+            </div>
+            <div>
+                <input type="submit" value="Create Book Instance">
+            </div>
+        </form>
+    
+    </main>
+    <%-include('../partials/footer.ejs') %>
+</body>
