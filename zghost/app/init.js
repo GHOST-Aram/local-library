@@ -16,7 +16,6 @@ const validator = new ExpressValidator()
 
 export const app = express()
 export const asynchHandler = expressAsyncHandler
-export const body = validator.body
 export const connect = mongoose.connect
 export const cookie_parser = cookieParser
 export const compressor = compression()
@@ -36,6 +35,5 @@ export const router = express.Router()
 export const Schema = mongoose.Schema
 export const statics = express.static
 export const urlencoded = express.urlencoded
-export const validationResult = validator.validationResult
 
 export {mongoose, body, validationResult}
