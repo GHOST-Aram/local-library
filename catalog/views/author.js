@@ -1,17 +1,16 @@
 import { asynchHandler } from "../../zghost/app/init.js"
 import { Author } from "../models/author.js"
+import { render, redirect } from "../../zghost/utils/http-response.js"
 
 
 
 export const author_create_get = (req, res) =>{
-    res.render('catalog/author-create', 
-    { 
-        title: 'Create Author',
-        heading: 'Create new Author'
+    render(res, 'catalog/author-create', { 
+        title: 'Create Author', heading: 'Create new Author'
     })
 }
 
-export const author_create_post = (req, res) =>{
+export const author_create_post = asynchHandler(async(req, res) =>{
 
     const body = req.body
 
@@ -21,40 +20,36 @@ export const author_create_post = (req, res) =>{
         date_of_birth: body.date_of_birth,
         date_of_death: body.date_of_death
     })
+    await author.save()
 
-    author.save().then(result => {
-        console.log(result)
-        res.redirect('/')
-    }).catch(error => console.error(err))
-        
-}
+    redirect(res, '/catalog/authors/list') 
+})
 
-export const authors_list = (req, res) =>{
-    Author.find().then(authors =>{
+export const authors_list = asynchHandler(async(req, res) =>{
+    const authors =  await Author.find().exec()
 
-        res.render('catalog/authors-list', 
-            { authors: authors, title: 'Authors List'}
-        )
+    render(res, 'catalog/authors-list', { 
+        authors: authors, title: 'Authors List'
     })
-}
+
+})
 
 export const author_details = asynchHandler(async(req, res) =>{
     const author = await Author.findById(req.params.id).exec()
-    const context = {
-        title: 'Author Details',
-        author
-    }
-    res.render('catalog/author-details', context)
+   
+    render(res, 'catalog/author-details', {
+        title: 'Author Details', author
+    })
 })
 
 export const author_update_get = asynchHandler(async(req, res) =>{
     const author = await Author.findById(req.params.id).exec()
-    const context = {
+
+    render(res, 'catalog/author-update',  {
         title: 'Edit Author',
         author,
         heading: 'Edit Author Details'
-    }
-    res.render('catalog/author-update', context)
+    })
 })
 
 export const author_update_post = asynchHandler(async(req, res) =>{
@@ -64,13 +59,13 @@ export const author_update_post = asynchHandler(async(req, res) =>{
         last_name: incoming.last_name,
         date_of_birth: incoming.date_of_birth,
         date_of_death: incoming.date_of_death
-    })
+    }).exec()
 
-    res.redirect(`/catalog/authors/${req.params.id}`)
+    redirect(res, `/catalog/authors/${req.params.id}`)
 })
 
 export const author_delete = asynchHandler(async(req, res) =>{
-    await Author.findByIdAndDelete(req.params.id)
+    await Author.findByIdAndDelete(req.params.id).exec()
 
-    res.redirect('/catalog/authors/list')
+    redirect(res, '/catalog/authors/list')
 })

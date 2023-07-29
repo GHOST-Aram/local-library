@@ -1,15 +1,14 @@
 import { asynchHandler } from "../../zghost/app/init.js";
 import { BookInstance } from "../models/book-instance.js";
 import { Book } from "../models/book.js";
+import { render, redirect } from "../../zghost/utils/http-response.js";
 
 export const bookinstance_create_get = asynchHandler(async(req, res) =>{
     const books = await Book.find().exec()
-    const context = {
-        title: 'Create Book Instance',
-        books
-    }
 
-    res.render('catalog/book-instance-create', context)
+    render(res, 'catalog/book-instance-create', {
+        title: 'Create Book Instance', books
+    })
 })
 
 export const bookinstance_create_post = asynchHandler(async(req, res)=>{
@@ -19,32 +18,28 @@ export const bookinstance_create_post = asynchHandler(async(req, res)=>{
         status: req.body.status,
         due_back: req.body.due_back
     })
-
     await bookinstance.save()
-    res.redirect('/catalog/bookinstances/create')
+
+    redirect(res, '/catalog/bookinstances/list')
 })
 
 export const bookinstances_list = asynchHandler(async(req, res) =>{
     const bookinstances = await BookInstance.find()
                                 .populate('book').exec()
-    console.log(bookinstances[0])
-    const context = {
-        title: 'Book Instances List',
-        bookinstances
-    }
-    res.render('catalog/bookinstances-list', context)
+
+    render(res, 'catalog/bookinstances-list',  {
+        title: 'Book Instances List', bookinstances
+    })
 })
 
 export const bookinstance_details = asynchHandler(async(req, res)=>{
     const bookinstance = await BookInstance.findById(req.params.id)
                                 .populate('book')
                                 .exec()
-    const context = {
-        title: 'Book Instance Details',
-        bookinstance
-    }
 
-    res.render('catalog/bookinstance-details', context)
+    render(res, 'catalog/bookinstance-details', {
+        title: 'Book Instance Details', bookinstance
+    })
 })
 
 export const bookinstance_update_get = asynchHandler(async(req, res)=>{
@@ -52,13 +47,12 @@ export const bookinstance_update_get = asynchHandler(async(req, res)=>{
                                 .populate('book')
                                 .exec()
     const books = await Book.find().exec()
-    const context = {
+
+    render(res, 'catalog/bookinstance-update', {
         title: 'Edit Book Instance Details',
         bookinstance,
         books
-    }
-    console.log(bookinstance)
-    res.render('catalog/bookinstance-update', context)
+    })
 })
 
 export const bookinstance_update_post = asynchHandler(async(req, res) =>{
@@ -67,12 +61,13 @@ export const bookinstance_update_post = asynchHandler(async(req, res) =>{
         imprint: req.body.imprint,
         status: req.body.status,
         due_back: req.body.due_back
-    })
+    }).exec()
 
-    res.redirect(`/catalog/bookinstances/${req.params.id}`)
+    redirect(res, `/catalog/bookinstances/${req.params.id}`)
 })
 
 export const bookinstance_delete = asynchHandler(async(req, res) =>{
     await BookInstance.findByIdAndDelete(req.params.id)
-    res.redirect('/catalog/bookinstances/list')
+
+    redirect(res, '/catalog/bookinstances/list')
 })

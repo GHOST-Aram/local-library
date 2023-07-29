@@ -3,6 +3,7 @@ import { Genre } from '../models/genre.js'
 import { asynchHandler } from "../../zghost/app/init.js";
 import { Book } from "../models/book.js";
 import { BookInstance } from "../models/book-instance.js";
+import { render } from "../../zghost/utils/http-response.js";
 
 
 export const index = asynchHandler(async(req, res) =>{
@@ -18,13 +19,12 @@ export const index = asynchHandler(async(req, res) =>{
         BookInstance.countDocuments().exec()
     ])
     
-    const context = { 
+    render(res, 'catalog/index', { 
         title: 'Home', 
         numAuthors, 
         numGenres,
         numBooks,
         numBookInstances 
-    }
-    res.render('catalog/index', context);
+    });
 })
 

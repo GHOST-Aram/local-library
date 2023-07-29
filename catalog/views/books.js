@@ -2,17 +2,18 @@ import { asynchHandler } from "../../zghost/app/init.js";
 import { Author } from "../models/author.js";
 import { Book } from "../models/book.js";
 import { Genre } from "../models/genre.js";
+import { redirect, render } from "../../zghost/utils/http-response.js";
 
 export const books_create_get = asynchHandler(async( req, res) => {
     const [authors, genres] = await Promise.all([
         Author.find().exec(), Genre.find().exec()
     ])
-    const context = { 
+    
+    render(res, 'catalog/book-create',  { 
         title: 'Create New Book',
         authors,
         genres
-    }
-    res.render('catalog/book-create', context)
+    })
 })
 
 export const books_create_post = asynchHandler(async(req, res) =>{
@@ -26,13 +27,15 @@ export const books_create_post = asynchHandler(async(req, res) =>{
 
     await book.save()
 
-    res.redirect('/catalog/books/create')
+    redirect(res, '/catalog/books/create')
 })
 
 export const books_list = asynchHandler(async(req, res) =>{
     const books = await Book.find().exec()
     
-    res.render('catalog/books-list', { title: 'Books List', books})
+    render(res, 'catalog/books-list', {
+         title: 'Books List', books
+    })
 })
 
 export const book_details = asynchHandler(async(req, res) =>{
@@ -40,9 +43,10 @@ export const book_details = asynchHandler(async(req, res) =>{
                         .populate('author')
                         .populate('genre')
                         .exec()
-    const context = { title: 'Book Details', book}
-    console.log(book.genre.origin)
-    res.render('catalog/book-details.ejs', context )
+
+    render(res, 'catalog/book-details.ejs', { 
+        title: 'Book Details', book
+    })
 })
 
 export const book_update_get = asynchHandler(async(req, res) =>{
@@ -55,7 +59,7 @@ export const book_update_get = asynchHandler(async(req, res) =>{
             .exec()
     ])
   
-    res.render('catalog/book-update', { 
+    render(res, 'catalog/book-update', { 
         title: 'Edit Book', 
         book,
         authors,
@@ -72,9 +76,10 @@ export const book_update_post = asynchHandler(async(req, res) =>{
         }
     )
 
-    res.redirect(`/catalog/book/${req.params.id}`)
+    redirect(res, `/catalog/book/${req.params.id}`)
 })
 export const book_delete = asynchHandler(async(req, res) =>{
-    await Book.findByIdAndDelete(req.params.id)
-    res.redirect('/catalog/books/list')
+    await Book.findByIdAndDelete(req.params.id).exec()
+    
+    redirect(res, '/catalog/books/list')
 })
