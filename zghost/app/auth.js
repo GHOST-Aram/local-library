@@ -3,13 +3,11 @@ import LocalStrategy from 'passport-local'
 import { db } from "../db/database.js"
 import { User } from "../../catalog/models/user.js"
 import { compare, hash } from "bcrypt"
+import { enableSession } from "../utils/sessions.js"
+import { app } from "./init.js"
 
 
 class Authentication{
-
-    authenticateApp = () =>{
-        return passport.session()
-    }
 
     authenticateRoute = ({ successRedirect, failureRedirect }) =>{
         return passport.authenticate('local',{
@@ -30,7 +28,7 @@ class Authentication{
     }
     
     initialize = () => {
-        return passport.initialize()
+        app.use(passport.initialize())
     }
 
     registerUser = async(req) => {
@@ -51,12 +49,26 @@ class Authentication{
             }
         )
     }
+    
+    logout = (request) =>{
+        request.logout()
+    }
 
     serializeUser = () => {
-        return passport.serializeUser((user, done) => {
+        passport.serializeUser((user, done) => {
             return done(null, user.id)
         })
     } 
+
+    setUpSession = ({ secret, maxAge, mongoUrl }) =>{
+        app.use(enableSession({
+            secret :secret,
+            maxAge: maxAge,
+            mongoUrl: mongoUrl
+        }))
+
+        app.use(passport.session())
+    }
 
     useLocalStrategy = () => {
         return passport.use(new LocalStrategy(async(username, password, done) => {
@@ -95,7 +107,7 @@ class Authentication{
     #findUser = async(username) => {
         return await db.findOne(User, { username: username })
     }
-    
+
     #validatePassword = async(inputPassword, savedPassowrd) => {
         return compare(inputPassword, savedPassowrd, (err, res) => {
             if(err) {

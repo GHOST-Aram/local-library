@@ -6,10 +6,12 @@ import {
     DB_URI
 } from "../../setting.js"
 import { logger } from "./init.js"
+import 'dotenv/config'
+
 
 export const config = () =>{
     // general config
-    server.connectToDB(DB_URI)
+    server.connectToDB(process.env.MONGODB_URI)
     server.useUrlEncordedPayloads({extended: false})
     server.logRequests(logger('dev'))
     server.setTemplatesDir(TEMPLATES_DIR)
