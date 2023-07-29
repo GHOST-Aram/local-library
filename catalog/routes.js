@@ -1,4 +1,4 @@
-import { index } from './controllers/index.js'
+import { index } from './views/index.js'
 import { router as catalog } from '../zghost/app/init.js'
 import { genres } from './routes/genre.js'
 import { books } from './routes/books.js'

@@ -18,10 +18,6 @@ class Server{
         }).catch(error => console.error(error))
     }
 
-    useUrlEncordedPayloads = (option) =>{
-        app.use(urlencoded(option))
-    }
-
     logRequests = (logger) =>{
         app.use(logger);
     }
@@ -41,7 +37,7 @@ class Server{
         app.set('view engine', engine);
     }
     useCompressor = () =>{
-        app.use(compressor)
+        app.use(compressor())
     }
     useHelmet = () =>{
         app.use(helmetSecurity)
@@ -53,6 +49,10 @@ class Server{
     useRateLimiter = () =>{
         app.use(rateLimiter)
     }
+    useUrlEncordedPayloads = (option) =>{
+        app.use(urlencoded(option))
+    }
+
 
 
 }

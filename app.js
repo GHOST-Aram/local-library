@@ -1,5 +1,6 @@
 import { catalog } from "./catalog/routes.js"
 import { app } from "./zghost/app/init.js"
+import { config } from "./zghost/app/config.js"
 
 config()
 app.all('/', (req, res) =>{

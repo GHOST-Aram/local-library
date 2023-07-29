@@ -19,7 +19,7 @@ export const app = express()
 export const asynchHandler = expressAsyncHandler
 export const connect = mongoose.connect
 export const cookie_parser = cookieParser
-export const compressor = compression()
+export const compressor = ()=> compression()
 export const debug = debuger
 export const helmetSecurity = helmet()
 export const httphandler = http
