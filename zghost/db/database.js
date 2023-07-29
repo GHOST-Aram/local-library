@@ -44,7 +44,9 @@ class Database{
     findByIdAndUpdate = async(Model, id, update_doc) =>{
         await Model.findByIdAndUpdate(id, update_doc)
     }
-    
+    findOne = async(Model, searchDocument) =>{
+        return await Model.findOne(searchDocument)
+    }
     findWithPopulateAndFilter = async(Model, refrences, filters) =>{
         return await Model.find()
                     .populate(refrences.join( ' '))
