@@ -1,6 +1,6 @@
 import { Author } from "../models/author.js"
 import { asynchHandler } from "../../zghost/app/init.js"
-import { db } from "../../zghost/utils/database.js"
+import { db } from "../../zghost/db/database.js"
 import { render, redirect } from "../../zghost/utils/http-response.js"
 
 

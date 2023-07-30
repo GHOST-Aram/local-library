@@ -1,8 +1,9 @@
 import { asynchHandler } from "../../zghost/app/init.js";
 import { Book } from "../models/book.js";
-import { db } from "../../zghost/utils/database.js";
+import { db } from "../../zghost/db/database.js";
 import { Genre } from "../models/genre.js";
 import { redirect, render } from "../../zghost/utils/http-response.js";
+import { compareObjectIds } from "../../zghost/utils/objects.js";
 
 
 export const genre_create_get = (req, res) =>{
@@ -23,9 +24,20 @@ export const genre_create_post = asynchHandler(async(req, res) =>{
 })
 
 export const genre_delete = asynchHandler(async(req, res) =>{
-    const linkedBooks = await Book.find({genre: req.params.id})
-    
-    if(linkedBooks.length > 0){
+    const linkedGenres = await db.findWithPopulateAndFilter(
+        Book, ['genre'], ['genre']
+    )
+    let isLinked = false
+    // Search for ObjectId with same string id as request id
+    linkedGenres.forEach(element => {
+        element.genre.forEach(genre =>{
+            if(genre._id.toString()=== req.params.id){
+                isLinked = true
+            }
+
+        })
+    });
+    if(isLinked){
         res.send('Cannot delete')
     }else{
         await db.findByIdAndDelete(Genre, req.params.id)

@@ -1,7 +1,7 @@
 import { asynchHandler } from "../../zghost/app/init.js";
 import { Book } from "../models/book.js";
 import { BookInstance } from "../models/book-instance.js";
-import { db } from "../../zghost/utils/database.js";
+import { db } from "../../zghost/db/database.js";
 import { render, redirect } from "../../zghost/utils/http-response.js";
 
 export const bookinstance_create_get = asynchHandler(async(req, res) =>{

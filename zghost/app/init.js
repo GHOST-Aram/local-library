@@ -25,3 +25,4 @@ export const Schema = mongoose.Schema
 export const statics = express.static
 export const urlencoded = express.urlencoded
 export const validationResult = validator.validationResult
+export {mongoose}

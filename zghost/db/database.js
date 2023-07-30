@@ -1,13 +1,17 @@
-import mongoose from "mongoose"
+import {mongoose} from '../app/init.js'
 
 class Database{
-
+    
     countDocuments = async(Model) =>{
         return Model.countDocuments()
     }
 
+    createObjectId = (textId) =>{
+        return mongoose.Types.ObjectId(textId)
+    }
+
     create = async(Model, document) =>{
-        Model.create(document)
+        await Model.create(document)
     }
 
     executeBatchQuery = async(queriesArray) =>{
@@ -41,6 +45,11 @@ class Database{
         await Model.findByIdAndUpdate(id, update_doc)
     }
     
+    findWithPopulateAndFilter = async(Model, refrences, filters) =>{
+        return await Model.find()
+                    .populate(refrences.join( ' '))
+                    .select(filters.join(' '))
+    }
     save = async(document) =>{
         await document.save()
     }
