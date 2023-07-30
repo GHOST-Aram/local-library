@@ -16,6 +16,10 @@ class Authentication{
         })
     }
 
+    authenticateSession = () =>{
+        app.use(passport.session())
+    }
+
     deserializeUser = () =>{
         return passport.deserializeUser(async(id, done) =>{
             try {
@@ -66,8 +70,6 @@ class Authentication{
             maxAge: maxAge,
             mongoUrl: mongoUrl
         }))
-
-        app.use(passport.session())
     }
 
     useLocalStrategy = () => {

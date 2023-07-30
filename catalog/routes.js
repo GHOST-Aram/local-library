@@ -5,10 +5,11 @@ import { books } from './routes/books.js'
 import { authors } from './routes/author.js'
 import { bookinstances } from './routes/book-instance.js'
 
+
 catalog.get('/', index)
-catalog.use('/genres', genres)
-catalog.use('/books', books)
 catalog.use('/authors', authors)
 catalog.use('/bookinstances', bookinstances)
+catalog.use('/books', books)
+catalog.use('/genres', genres)
 
 export { catalog }

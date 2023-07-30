@@ -7,6 +7,7 @@ import {
 } from "../../setting.js"
 import { logger } from "./init.js"
 import 'dotenv/config'
+import { auth } from "./auth.js"
 
 
 export const config = () =>{
@@ -22,4 +23,18 @@ export const config = () =>{
     server.useCompressor() //Compression
     server.useHelmet()
     server.useRateLimiter()
+
+    //authentication and sessions config
+    auth.setUpSession({
+        secrete: process.env.SECRETE,
+        maxAge: 3600 * 24,
+        mongoUrl: process.env.MONGODB_URI
+    })
+
+    auth.useLocalStrategy()
+    auth.serializeUser()
+    auth.deserializeUser()
+    auth.initialize()
+    auth.authenticateSession()
+
 }

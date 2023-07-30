@@ -7,6 +7,23 @@ class Validator{
             .isISO8601()
             .withMessage('Invalid date')
     }
+    
+    validatePassword = (password) =>{
+        return body(password)
+            .trim()
+            .notEmpty()
+            .isLength({ min: 8, max: 24})
+            .escape()
+            
+    }
+
+    validateUsername = (username) =>{
+        return body(username)
+            .trim()
+            .notEmpty()
+            .isLength({ min: 2, max: 100 })
+            .escape()
+    }
 
     validatePlainText = (strName) => {
         return body(strName)
