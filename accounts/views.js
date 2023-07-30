@@ -17,6 +17,11 @@ export const login_post = [
         failureRedirect: '/login'
     })
 ]
+
+export const logout = () =>{
+    auth.logout(req)
+    redirect(res, '/')
+}
 export const signup_get = (req, res) =>{
     render(res, 'accounts/signup', {
         title: 'Sign up', errors: null
