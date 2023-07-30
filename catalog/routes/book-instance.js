@@ -1,6 +1,7 @@
-import { router as bookinstances } from "../../zghost/app/init.js"
+import { Router } from 'express'
 import * as bookinstance from '../views/book-instance.js'
 
+const bookinstances = Router()
 
 bookinstances.get('/create', bookinstance.bookinstance_create_get)
 bookinstances.post('/create', bookinstance.bookinstance_create_post)

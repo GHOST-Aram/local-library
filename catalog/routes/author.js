@@ -1,6 +1,7 @@
-import { router as authors} from "../../zghost/app/init.js";
+import { Router } from "express";
 import * as author from "../views/author.js";
 
+const authors = Router()
 
 authors.get('/create', author.author_create_get)
 authors.post('/create', author.author_create_post)

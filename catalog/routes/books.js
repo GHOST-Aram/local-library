@@ -1,6 +1,7 @@
-import { router as books } from "../../zghost/app/init.js"
+import { Router } from 'express'
 import * as book from '../views/books.js'
 
+const books = Router()
 
 books.get('/create', book.books_create_get)
 books.post('/create', book.books_create_post)

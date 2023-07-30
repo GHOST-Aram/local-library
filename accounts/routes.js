@@ -1,6 +1,8 @@
-import { router as accounts } from "../zghost/app/init.js";
+import { Router } from 'express'
 import * as account from './views.js'
 
+
+const accounts = Router()
 accounts.get('/login', account.login_get)
 accounts.get('/signup', account.signup_get)
 accounts.post('/signup', account.signup_post)

@@ -32,7 +32,6 @@ export const rateLimiter = rateLimit({
     standardHeaders: true,
     legacyHeaders: false
 })
-export const router = express.Router()
 export const Schema = mongoose.Schema
 export const statics = express.static
 export const urlencoded = express.urlencoded

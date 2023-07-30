@@ -1,6 +1,7 @@
-import { router as genres} from '../../zghost/app/init.js'
+import { Router } from 'express'
 import * as genre from '../views/genre.js'
 
+const genres = Router()
 
 genres.get('/create', genre.genre_create_get)
 genres.post('/create', genre.genre_create_post)
