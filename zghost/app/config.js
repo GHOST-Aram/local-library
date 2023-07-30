@@ -3,7 +3,6 @@ import {
     TEMPLATES_DIR, 
     VIEW_ENGINE,
     STATIC,
-    DB_URI
 } from "../../setting.js"
 import { logger } from "./init.js"
 import 'dotenv/config'
@@ -26,7 +25,7 @@ export const config = () =>{
 
     //authentication and sessions config
     auth.setUpSession({
-        secrete: process.env.SECRETE,
+        secret: process.env.SECRETE,
         maxAge: 3600 * 24,
         mongoUrl: process.env.MONGODB_URI
     })

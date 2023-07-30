@@ -10,6 +10,6 @@ catalog.get('/', index)
 catalog.use('/authors', authors)
 catalog.use('/bookinstances', bookinstances)
 catalog.use('/books', books)
-catalog.use('/genres', genres)
+// catalog.use('/genres', genres)
 
 export { catalog }

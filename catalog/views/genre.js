@@ -3,7 +3,6 @@ import { Book } from "../models/book.js";
 import { db } from "../../zghost/db/database.js";
 import { Genre } from "../models/genre.js";
 import { redirect, render } from "../../zghost/utils/http-response.js";
-import { compareObjectIds } from "../../zghost/utils/objects.js";
 import { validator } from "../../zghost/utils/validation.js";
 
 

@@ -14,13 +14,13 @@ export const login_post = [
     validator.validateUsername('username'),
     auth.authenticateRoute({
         successRedirect: '/',
-        failureRedirect: '/login'
+        failureRedirect: '/accounts/login'
     })
 ]
 
-export const logout = () =>{
-    auth.logout(req)
-    redirect(res, '/')
+export const logout = (req, res, next) =>{
+    auth.logout(req, next)
+    redirect(res, '/') 
 }
 export const signup_get = (req, res) =>{
     render(res, 'accounts/signup', {

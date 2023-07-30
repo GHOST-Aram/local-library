@@ -2,7 +2,7 @@ import passport from "passport"
 import LocalStrategy from 'passport-local'
 import { db } from "../db/database.js"
 import { User } from "../../catalog/models/user.js"
-import { compare, hash } from "bcrypt"
+import { compareSync, hash } from "bcrypt"
 import { enableSession } from "../utils/sessions.js"
 import { app } from "./init.js"
 
@@ -12,7 +12,7 @@ class Authentication{
     authenticateRoute = ({ successRedirect, failureRedirect }) =>{
         return passport.authenticate('local',{
             successRedirect: successRedirect,
-            failureRedirect: failureRedirect
+            failureRedirect: failureRedirect,
         })
     }
 
@@ -34,28 +34,28 @@ class Authentication{
     initialize = () => {
         app.use(passport.initialize())
     }
-
-    registerUser = async(req) => {
-        const hashedPassword = await this.#generateHashedPassword(req.body.password)
-        await db.create(User, {
-            username: req.body.username,
-            password: hashedPassword
+    
+    logout = (request, next) =>{
+        request.logout((err) =>{
+            if(err){
+                return next(err)
+            }
+            next()
         })
     }
 
-    #generateHashedPassword = async (password) => {
-        return hash(password, 10, 
+    registerUser = async(req) => {
+        hash(req.body.password, 10, 
             async(err, hashedPassword) => {
                 if(err){
                     throw err
                 }
-                return hashedPassword
-            }
-        )
-    }
-    
-    logout = (request) =>{
-        request.logout()
+                await db.create(User, {
+                    username: req.body.username,
+                    password: hashedPassword
+                }) 
+            })
+        
     }
 
     serializeUser = () => {
@@ -93,10 +93,10 @@ class Authentication{
             })
         }
         
-        const isValidPassword = this.#validatePassword(
+        const isValidPassword = await this.#validatePassword(
             password, user.password
         )
-
+            console.log('Valid password: ',isValidPassword)
         if(isValidPassword){
             return done(null, user)
         }else{
@@ -111,12 +111,7 @@ class Authentication{
     }
 
     #validatePassword = async(inputPassword, savedPassowrd) => {
-        return compare(inputPassword, savedPassowrd, (err, res) => {
-            if(err) {
-                throw err
-            }
-           res ? true : false
-        }) 
+        return compareSync(inputPassword, savedPassowrd)
     }
 }
 
