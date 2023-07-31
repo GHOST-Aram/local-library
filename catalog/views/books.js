@@ -56,11 +56,15 @@ export const book_update_get = asynchHandler(async(req, res) =>{
             .exec()
     ])
   
-
     res.render('catalog/book-update', { 
         title: 'Edit Book', 
         book,
         authors,
         genres
     })
+})
+
+export const book_delete = asynchHandler(async(req, res) =>{
+    await Book.findByIdAndDelete(req.params.id)
+    res.redirect('/catalog/books/list')
 })

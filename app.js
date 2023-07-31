@@ -22,6 +22,7 @@ import mongoose from 'mongoose';
 import { DB_URI } from './setting.js';
 import { config } from './zghost/app/config.js';
 import { 
+	book_delete,
 	book_details,
 	book_update_get,
 	books_create_get, 
@@ -48,12 +49,14 @@ mongoose.connect(DB_URI).then(result =>{
 		res.redirect('/catalog')
 	})
 	app.get('/catalog/', index)
+	
 	app.get('/catalog/genres/create', genre_create_get)
 	app.post('/catalog/genres/create', genre_create_post)
 	app.get('/catalog/genres/list', genre_list)
 	app.get('/catalog/genres/:id/update', genre_update_get)
 	app.post('/catalog/genres/:id/update',genre_update_post)
 	app.get('/catalog/genres/:id/delete', genre_delete)
+
 	app.get('/catalog/authors/create', author_create_get)
 	app.post('/catalog/authors/create', author_create_post)
 	app.get('/catalog/authors/list', authors_list)
@@ -67,6 +70,8 @@ mongoose.connect(DB_URI).then(result =>{
 	app.get('/catalog/books/list', books_list)
 	app.get('/catalog/book/:id', book_details)
 	app.get('/catalog/books/:id/update', book_update_get)
+	app.get('/catalog/books/:id/delete', book_delete)
+
 	app.get('/catalog/bookinstances/create', bookinstance_create_get)
 	app.post('/catalog/bookinstances/create', bookinstance_create_post)
 	app.get('/catalog/bookinstances/list', bookinstances_list)
