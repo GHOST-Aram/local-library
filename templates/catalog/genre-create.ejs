@@ -7,23 +7,39 @@
             <div>
                 <label for="name">
                     Genre Name:
-                    
-                    <% if (genre){%>
-                        <input 
-                            type="text" 
-                            name="name" 
-                            id="name" 
-                            value="<%=genre.name%>"
-                            required
-                        >
-                    <%}else{%>
-                        <input 
-                            type="text" 
-                            name="name" 
-                            id="name" 
-                            required
-                        >
-                    <%} %>
+                    <input 
+                        type="text" 
+                        name="name" 
+                        id="name" 
+                        required
+                        placeholder="Eg. Comic"
+                    >
+                </label>
+            </div>
+            <div>
+                <label for="description">
+                    Description
+                    <textarea 
+                        name="description" 
+                        id="description" 
+                        cols="50" 
+                        rows="7"
+                        minlength="50"
+                        maxlength="500"
+                        required
+                    >Provide a short description...
+                    </textarea>
+                </label>
+            </div>
+            <div>
+                <label for="origin">
+                    Origin
+                    <input 
+                        type="text" 
+                        name="origin" 
+                        id="origin"
+                        placeholder="Where was it developed in?"
+                    >
                 </label>
             </div>
             <div>

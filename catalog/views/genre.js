@@ -3,18 +3,23 @@ import { Genre } from "../models/genre.js";
 
 
 export const genre_create_get = (req, res) =>{
-    res.render('catalog/genre-create',{ title: 'Create Genre'})
+    res.render('catalog/genre-create',{ 
+        title: 'Create Genre',
+        heading: 'Create New Genre'
+    })
 }
 
-export const genre_create_post = (req, res) =>{
-    const data = req.body
-    const genre = new Genre({ name: data.name})
+export const genre_create_post = asynchHandler(async(req, res) =>{
+    const genre = new Genre({
+         name: req.body.name,
+         description: req.body.description,
+         origin: req.body.origin
+        })
 
-    genre.save().then(result =>{
-        console.log(result)
-        res.redirect('/')
-    })    
-}
+    await genre.save()
+    res.redirect('/catalog/genres/list')
+       
+})
 
 export const genre_list = asynchHandler(async(req, res) =>{
     const genres = await Genre.find().exec()
