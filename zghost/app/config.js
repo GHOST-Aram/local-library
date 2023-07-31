@@ -8,13 +8,16 @@ import {
 import { logger } from "./init.js"
 
 export const config = () =>{
+    // general config
     server.connectToDB(DB_URI)
     server.useUrlEncordedPayloads({extended: false})
     server.logRequests(logger('dev'))
     server.setTemplatesDir(TEMPLATES_DIR)
     server.setViewEngine(VIEW_ENGINE)
     server.useStaticFiles(STATIC)
-    server.useCompressor()
+    
+    // production configs
+    server.useCompressor() //Compression
     server.useHelmet()
     server.useRateLimiter()
 }

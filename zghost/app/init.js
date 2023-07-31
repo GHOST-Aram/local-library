@@ -9,6 +9,7 @@ import mongoose from 'mongoose';
 import compression from 'compression';
 import helmet from 'helmet';
 import { rateLimit } from 'express-rate-limit';
+import { body, validationResult } from 'express-validator';
 
 const validator = new ExpressValidator()
 
@@ -36,4 +37,5 @@ export const Schema = mongoose.Schema
 export const statics = express.static
 export const urlencoded = express.urlencoded
 export const validationResult = validator.validationResult
-export {mongoose}
+
+export {mongoose, body, validationResult}
