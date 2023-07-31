@@ -68,3 +68,9 @@ export const author_update_post = asynchHandler(async(req, res) =>{
 
     res.redirect(`/catalog/authors/${req.params.id}`)
 })
+
+export const author_delete = asynchHandler(async(req, res) =>{
+    await Author.findByIdAndDelete(req.params.id)
+
+    res.redirect('/catalog/authors/list')
+})

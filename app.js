@@ -2,6 +2,7 @@ import { index } from './catalog/views/index.js'
 import { 
 	author_create_get, 
 	author_create_post, 
+	author_delete, 
 	author_details, 
 	author_update_get, 
 	author_update_post, 
@@ -59,6 +60,8 @@ mongoose.connect(DB_URI).then(result =>{
 	app.get('/catalog/authors/:id', author_details)
 	app.get('/catalog/authors/:id/update', author_update_get)
 	app.post('/catalog/authors/:id/update',author_update_post)
+	app.get('/catalog/authors/:id/delete', author_delete)
+
 	app.get('/catalog/books/create', books_create_get)
 	app.post('/catalog/books/create', books_create_post)
 	app.get('/catalog/books/list', books_list)

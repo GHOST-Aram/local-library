@@ -13,13 +13,22 @@
                 <%=author.date_of_death%>
             </li> 
             <%}%>
-            <a href="/catalog/authors/<%=author._id%>/update">
-                <button
-                    style="background-color: green; color: white;"
-                >
-                    Edit
-                </button>
-            </a> 
+            <div>
+                <a href="/catalog/authors/<%=author._id%>/update">
+                    <button
+                        style="background-color: green; color: white;"
+                    >
+                        Edit
+                    </button>
+                </a> 
+                <a href="/catalog/authors/<%=author._id%>/delete">
+                    <button
+                        style="background-color: red; color: white;"
+                    >
+                        Delete
+                    </button>
+                </a> 
+            </div>
         </ul>
     </main>
     <%-include('../partials/footer.ejs') %>
