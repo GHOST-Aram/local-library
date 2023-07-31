@@ -40,3 +40,8 @@ export const genre_update_post = asynchHandler(async(req, res) =>{
     res.redirect('/catalog/genres/list')
 })
 
+export const genre_delete = asynchHandler(async(req, res) =>{
+    await Genre.findByIdAndDelete(req.params.id)
+    res.redirect('/catalog/genres/list')
+})
+

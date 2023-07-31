@@ -9,7 +9,18 @@
                     <div style="display: flex; gap: 1rem;">
                         <li><%=genre.name%></li>
                         <a href="/catalog/genres/<%=genre._id%>/update">
-                            Edit
+                            <button
+                            style="background-color: green; color: white;"
+                            >
+                                Edit
+                            </button>
+                        </a>
+                        <a href="/catalog/genres/<%=genre._id%>/delete">
+                            <button
+                            style="background-color: red; color: white;"
+                            >
+                                Edit
+                            </button>
                         </a>
                     </div>   
                     <hr>
