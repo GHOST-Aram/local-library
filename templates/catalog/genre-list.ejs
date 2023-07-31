@@ -7,21 +7,11 @@
             <% if(genres.length > 0) { %>
                 <% genres.map(genre =>{ %> 
                     <div style="display: flex; gap: 1rem;">
-                        <li><%=genre.name%></li>
-                        <a href="/catalog/genres/<%=genre._id%>/update">
-                            <button
-                            style="background-color: green; color: white;"
-                            >
-                                Edit
-                            </button>
-                        </a>
-                        <a href="/catalog/genres/<%=genre._id%>/delete">
-                            <button
-                            style="background-color: red; color: white;"
-                            >
-                                Delete
-                            </button>
-                        </a>
+                        <li>
+                            <a href="/catalog/genres/<%=genre._id%>">
+                                <%=genre.name%>
+                            </a>
+                        </li>
                     </div>   
                     <hr>
                 <%})%>

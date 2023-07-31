@@ -21,6 +21,19 @@ export const genre_create_post = asynchHandler(async(req, res) =>{
        
 })
 
+export const genre_delete = asynchHandler(async(req, res) =>{
+    await Genre.findByIdAndDelete(req.params.id)
+    res.redirect('/catalog/genres/list')
+})
+
+export const genre_details = asynchHandler(async(req, res) =>{
+    const genre = await Genre.findById(req.params.id)
+
+    res.render('catalog/genre-details',{
+        title: 'Genre Details',
+        genre
+    })
+})
 export const genre_list = asynchHandler(async(req, res) =>{
     const genres = await Genre.find().exec()
 
@@ -45,8 +58,5 @@ export const genre_update_post = asynchHandler(async(req, res) =>{
     res.redirect('/catalog/genres/list')
 })
 
-export const genre_delete = asynchHandler(async(req, res) =>{
-    await Genre.findByIdAndDelete(req.params.id)
-    res.redirect('/catalog/genres/list')
-})
+
 

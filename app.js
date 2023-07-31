@@ -14,7 +14,8 @@ import {
 	genre_list, 
 	genre_update_get,
 	genre_update_post,
-	genre_delete
+	genre_delete,
+	genre_details
 } from './catalog/views/genre.js';
 import { app } from './zghost/app/init.js';
 import createHttpError from 'http-errors';
@@ -54,6 +55,7 @@ mongoose.connect(DB_URI).then(result =>{
 	app.get('/catalog/genres/create', genre_create_get)
 	app.post('/catalog/genres/create', genre_create_post)
 	app.get('/catalog/genres/list', genre_list)
+	app.get('/catalog/genres/:id', genre_details)
 	app.get('/catalog/genres/:id/update', genre_update_get)
 	app.post('/catalog/genres/:id/update',genre_update_post)
 	app.get('/catalog/genres/:id/delete', genre_delete)

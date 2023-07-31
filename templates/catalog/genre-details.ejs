@@ -1,0 +1,47 @@
+<%-include('../partials/head.ejs') %>
+<body>
+    <%-include('../partials/nav.ejs') %>
+    <main>
+        <h1>Genre Details</h1>
+        <ul>
+            <li><strong>Name: </strong><%=genre.name%></li>  
+            <br>
+            <li>
+                <strong>Description: </strong>
+                <% if(genre.description) {%>
+                    <%=genre.description%>
+                <%}else{%>
+                    <%= 'Description was not provided' %>
+                <%}%>
+            </li>
+            <br>
+            <li>
+                <strong>Origin: </strong>
+                <% if(genre.origin){ %>
+                    <%=genre.origin%>
+                <%}else{ %>
+                    <%= 'Origin was not provided' %>
+                <%}%>
+            </li>
+            <br>
+            <div>
+                <a href="/catalog/genres/<%=genre._id%>/update">
+                    <button
+                    style="background-color: green; color: white;"
+                    >
+                        Edit
+                    </button>
+                </a>
+                <a href="/catalog/genres/<%=genre._id%>/delete">
+                    <button
+                    style="background-color: red; color: white;"
+                    >
+                        Delete
+                    </button>
+                </a>
+            </div>
+        </ul>
+    </main>
+    <%-include('../partials/footer.ejs') %>
+</body>
+</html>
