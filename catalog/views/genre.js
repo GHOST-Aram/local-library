@@ -1,4 +1,5 @@
 import { asynchHandler } from "../../zghost/app/init.js";
+import { Book } from "../models/book.js";
 import { Genre } from "../models/genre.js";
 
 
@@ -22,8 +23,14 @@ export const genre_create_post = asynchHandler(async(req, res) =>{
 })
 
 export const genre_delete = asynchHandler(async(req, res) =>{
-    await Genre.findByIdAndDelete(req.params.id)
-    res.redirect('/catalog/genres/list')
+    const linkedBooks = await Book.find({genre: req.params.id})
+    
+    if(linkedBooks.length > 0){
+        res.send('Cannot delete')
+    }else{
+        await Genre.findByIdAndDelete(req.params.id)
+        res.redirect('/catalog/genres/list')
+    }
 })
 
 export const genre_details = asynchHandler(async(req, res) =>{

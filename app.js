@@ -26,6 +26,7 @@ import {
 	book_delete,
 	book_details,
 	book_update_get,
+	book_update_post,
 	books_create_get, 
 	books_create_post, 
 	books_list
@@ -73,6 +74,7 @@ mongoose.connect(DB_URI).then(result =>{
 	app.get('/catalog/books/list', books_list)
 	app.get('/catalog/book/:id', book_details)
 	app.get('/catalog/books/:id/update', book_update_get)
+	app.post('/catalog/books/:id/update', book_update_post)
 	app.get('/catalog/books/:id/delete', book_delete)
 
 	app.get('/catalog/bookinstances/create', bookinstance_create_get)

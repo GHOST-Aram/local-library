@@ -16,13 +16,12 @@ export const books_create_get = asynchHandler(async( req, res) => {
 })
 
 export const books_create_post = asynchHandler(async(req, res) =>{
-    const incoming = req.body
 
     const book = new Book({
-        title: incoming.title,
-        author: incoming.author,
-        isbn: incoming.isbn,
-        genre: incoming.genre
+        title: req.body.title,
+        author: req.body.author,
+        isbn: req.body.isbn,
+        genre: req.body.genre
     })
 
     await book.save()
@@ -42,7 +41,7 @@ export const book_details = asynchHandler(async(req, res) =>{
                         .populate('genre')
                         .exec()
     const context = { title: 'Book Details', book}
-    
+    console.log(book.genre.origin)
     res.render('catalog/book-details.ejs', context )
 })
 
@@ -64,6 +63,17 @@ export const book_update_get = asynchHandler(async(req, res) =>{
     })
 })
 
+export const book_update_post = asynchHandler(async(req, res) =>{
+    await Book.findByIdAndUpdate(req.params.id,{
+            title: req.body.title,
+            author: req.body.author,
+            isbn: req.body.isbn,
+            genre: req.body.genre
+        }
+    )
+
+    res.redirect(`/catalog/book/${req.params.id}`)
+})
 export const book_delete = asynchHandler(async(req, res) =>{
     await Book.findByIdAndDelete(req.params.id)
     res.redirect('/catalog/books/list')
