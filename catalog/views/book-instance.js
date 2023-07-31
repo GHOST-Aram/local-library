@@ -57,7 +57,7 @@ export const bookinstance_update_get = asynchHandler(async(req, res)=>{
         bookinstance,
         books
     }
-
+    console.log(bookinstance)
     res.render('catalog/bookinstance-update', context)
 })
 
@@ -70,4 +70,9 @@ export const bookinstance_update_post = asynchHandler(async(req, res) =>{
     })
 
     res.redirect(`/catalog/bookinstances/${req.params.id}`)
+})
+
+export const bookinstance_delete = asynchHandler(async(req, res) =>{
+    await BookInstance.findByIdAndDelete(req.params.id)
+    res.redirect('/catalog/bookinstances/list')
 })

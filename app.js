@@ -32,6 +32,7 @@ import {
 import { 
 	bookinstance_create_get, 
 	bookinstance_create_post, 
+	bookinstance_delete, 
 	bookinstance_details, 
 	bookinstance_update_get, 
 	bookinstance_update_post, 
@@ -49,7 +50,7 @@ mongoose.connect(DB_URI).then(result =>{
 		res.redirect('/catalog')
 	})
 	app.get('/catalog/', index)
-	
+
 	app.get('/catalog/genres/create', genre_create_get)
 	app.post('/catalog/genres/create', genre_create_post)
 	app.get('/catalog/genres/list', genre_list)
@@ -78,6 +79,7 @@ mongoose.connect(DB_URI).then(result =>{
 	app.get('/catalog/bookinstances/:id', bookinstance_details)
 	app.get('/catalog/bookinstances/:id/update', bookinstance_update_get)
 	app.post('/catalog/bookinstances/:id/update', bookinstance_update_post)
+	app.get('/catalog/bookinstances/:id/delete', bookinstance_delete)
 
 	
 	// app.use(function(req, res, next) {
