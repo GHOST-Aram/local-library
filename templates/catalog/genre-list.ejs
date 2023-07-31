@@ -6,14 +6,13 @@
         <ul>
             <% if(genres.length > 0) { %>
                 <% genres.map(genre =>{ %> 
-                    <div style="display: flex; gap: 1rem;">
+                    <div style="display: flex; gap: 1rem; padding-block: .4rem">
                         <li>
                             <a href="/catalog/genres/<%=genre._id%>">
                                 <%=genre.name%>
                             </a>
                         </li>
                     </div>   
-                    <hr>
                 <%})%>
             <%} else {%>
                 <p>There are no genres to display.</p>
