@@ -3,7 +3,7 @@
     <%-include('../partials/nav.ejs') %>
     <main>
         <form action="" method="post">
-            <h1>Create new Genre</h1>
+            <h1>Edit Genre Details</h1>
             <div>
                 <label for="name">
                     Genre Name:
@@ -13,6 +13,7 @@
                         id="name" 
                         required
                         placeholder="Eg. Comic"
+                        value="<%=genre.name%>"
                     >
                 </label>
             </div>
@@ -27,7 +28,7 @@
                         minlength="50"
                         maxlength="500"
                         required
-                    >Provide a short description...
+                    ><%=genre.description ? genre.description : 'Write decription...'%>
                     </textarea>
                 </label>
             </div>
@@ -39,6 +40,7 @@
                         name="origin" 
                         id="origin"
                         placeholder="Where was it developed in?"
+                        value="<%=genre.origin ? genre.origin : ''%>"
                     >
                 </label>
             </div>
