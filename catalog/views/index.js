@@ -1,8 +1,9 @@
-import { Author } from "../models/author.js";
-import { Genre } from '../models/genre.js'
 import { asynchHandler } from "../../zghost/app/init.js";
+import { Author } from "../models/author.js";
 import { Book } from "../models/book.js";
 import { BookInstance } from "../models/book-instance.js";
+import { db } from "../../zghost/utils/database.js";
+import { Genre } from '../models/genre.js'
 import { render } from "../../zghost/utils/http-response.js";
 
 
@@ -12,11 +13,11 @@ export const index = asynchHandler(async(req, res) =>{
         numBooks,
         numGenres,
         numBookInstances
-    ] = await Promise.all([
-        Author.countDocuments().exec(),
-        Book.countDocuments().exec(),
-        Genre.countDocuments().exec(),
-        BookInstance.countDocuments().exec()
+    ] = await db.executeBatchQuery([
+        db.countDocuments(Author),
+        db.countDocuments(Book),
+        db.countDocuments(Genre),
+        db.countDocuments(BookInstance)
     ])
     
     render(res, 'catalog/index', { 
