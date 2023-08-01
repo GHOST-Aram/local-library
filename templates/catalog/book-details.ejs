@@ -8,7 +8,11 @@
             <li><strong>Author: </strong><%=book.author.name%></li>
             <li><strong>ISBN: </strong><%=book.isbn%></li>
             <% if(book.genre){ %>
-            <li><strong>Genre: </strong><%=book.genre.name%></li>  
+                <li><strong>Genres:</strong>
+                <% book.genre.map(genr =>{ %>
+                         <%=genr.name + ','%>
+                    <%}) %>
+                </li>  
             <%}%>
             <br>
             <a href="/catalog/books/<%=book._id%>/update">
