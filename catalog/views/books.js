@@ -4,6 +4,7 @@ import { Book } from "../models/book.js";
 import { db } from "../../zghost/db/database.js";
 import { Genre } from "../models/genre.js";
 import { redirect, render } from "../../zghost/utils/http-response.js";
+import { BookInstance } from "../models/book-instance.js";
 
 export const books_create_get = asynchHandler(async( req, res) => {
     const [authors, genres] = await db.executeBatchQuery([
@@ -74,7 +75,21 @@ export const book_update_post = asynchHandler(async(req, res) =>{
     redirect(res, `/catalog/book/${req.params.id}`)
 })
 export const book_delete = asynchHandler(async(req, res) =>{
-    await db.findByIdAndDelete(Book, req.params.id)
+    const linkedBookInstances = await db.findWithPopulateAndFilter(
+        BookInstance, ['book'], ['book']
+    )
+    let isLinked = false
+    // Check if book has book instance
+    linkedBookInstances.forEach(element =>{
+        if(element.book._id.toString() === req.params.id)
+            isLinked = true
+    })
 
-    redirect(res, '/catalog/books/list')
+    if(isLinked)
+        res.send('Cannot delete')
+    else{
+        await db.findByIdAndDelete(Book, req.params.id)
+        redirect(res, '/catalog/books/list')
+    }
+
 })
