@@ -2,6 +2,7 @@ import { Author } from "../models/author.js"
 import { asynchHandler } from "../../zghost/app/init.js"
 import { db } from "../../zghost/db/database.js"
 import { render, redirect } from "../../zghost/utils/http-response.js"
+import { Book } from "../models/book.js"
 
 
 
@@ -62,7 +63,22 @@ export const author_update_post = asynchHandler(async(req, res) =>{
 })
 
 export const author_delete = asynchHandler(async(req, res) =>{
-    await db.findByIdAndDelete(Author, req.params.id)
+    const linkedAuthors = await db.findWithPopulateAndFilter(
+        Book, ['author'], ['author']
+    )
+    let isLinked = false
+    // Check if islinked
+    linkedAuthors.forEach(element =>{
+        if(element.author._id.toString() === req.params.id)
+            isLinked = true
+    })
+    
+    if(isLinked){
+        res.send('Cannot delete')
+    } else{
+        await db.findByIdAndDelete(Author, req.params.id)
+
+    }
 
     redirect(res, '/catalog/authors/list')
 })
